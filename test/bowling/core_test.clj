@@ -14,4 +14,7 @@
                (score a-game-with-a-spare) => 16))
        (let [a-game-with-a-strike [10 3 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]]
          (fact "it scores a game with a strike"
-               (score a-game-with-a-strike) => 24)))
+               (score a-game-with-a-strike) => 24))
+       (let [a-perfect-game [10 10 10 10 10 10 10 10 10 10 10 10]]
+         (fact "it scores a perfect game"
+               (score a-perfect-game) => 300)))
