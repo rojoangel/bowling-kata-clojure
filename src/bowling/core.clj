@@ -22,6 +22,9 @@
     (drop 1 (drop 2 rolls))
     (drop 2 rolls)))
 
+(defn- remaining-rolls [rolls]
+  (drop 2 rolls))
+
 (defn score [rolls]
   (if (empty? rolls)
     0
@@ -31,4 +34,5 @@
       (if (next-frame-spare? rolls)
         (+ (apply + (take 3 rolls))
            (score (remaining-spare-rolls rolls)))
-        (+ (apply + (take 2 rolls)) (score (drop 2 rolls)))))))
+        (+ (apply + (take 2 rolls))
+           (score (remaining-rolls rolls)))))))
