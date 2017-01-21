@@ -30,20 +30,24 @@
 (defmethod remaining-rolls nil [rolls]
   (drop 2 rolls))
 
-(defn- score-strike-frame [rolls]
+(defmulti score-frame (fn [rolls] (if (next-frame-strike? rolls)
+                                    :strike)))
+
+
+(defmethod score-frame :strike [rolls]
   (apply + (take 3 rolls)))
 
 (defn- score-spare-frame [rolls]
   (apply + (take 3 rolls)))
 
-(defn- score-frame [rolls]
+(defmethod score-frame nil [rolls]
   (apply + (take 2 rolls)))
 
 (defn score [rolls]
   (if (empty? rolls)
     0
     (if (next-frame-strike? rolls)
-      (+ (score-strike-frame rolls)
+      (+ (score-frame rolls)
          (score (remaining-rolls rolls)))
       (if (next-frame-spare? rolls)
         (+ (score-spare-frame rolls)
