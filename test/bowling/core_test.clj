@@ -17,4 +17,7 @@
                (score a-game-with-a-strike) => 24))
        (let [a-perfect-game [10 10 10 10 10 10 10 10 10 10 10 10]]
          (fact "it scores a perfect game"
-               (score a-perfect-game) => 300)))
+               (score a-perfect-game) => 300))
+       (let [an-all-spares-game [5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 10]]
+         (fact "it scores an all spares game"
+               (score an-all-spares-game) => 155)))
