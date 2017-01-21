@@ -3,8 +3,8 @@
 (defn- spare? [roll1 roll2]
   (= 10 (+ roll1 roll2)))
 
-(defn- strike? [roll]
-  (= 10 roll))
+(defn- strike? [rolls]
+  (= 10 (first rolls)))
 
 (defn- strike-bonus? [rolls]
   (= 2 (count rolls)))
@@ -13,7 +13,7 @@
   (= 1 (count rolls)))
 
 (defn score [rolls]
-  (if (strike? (first rolls))
+  (if (strike? rolls)
     (+ (apply + (take 3 rolls))
        (if (strike-bonus? (rest rolls))
          0
