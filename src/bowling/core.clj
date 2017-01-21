@@ -12,15 +12,17 @@
 (defn- game-ends-with-spare? [rolls]
   (= 1 (count (drop 2 rolls))))
 
+(defn remaining-strike-rolls [rolls]
+  (if (game-ends-with-strike? rolls)
+    (drop 2 (rest rolls))
+    (rest rolls)))
+
 (defn score [rolls]
   (if (empty? rolls)
     0
     (if (next-frame-strike? rolls)
       (+ (apply + (take 3 rolls))
-         (score
-           (if (game-ends-with-strike? rolls)
-             (drop 2 (rest rolls))
-             (rest rolls))))
+         (score (remaining-strike-rolls rolls)))
       (if (next-frame-spare? rolls)
         (+ (apply + (take 3 rolls))
            (score
