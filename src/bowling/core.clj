@@ -48,11 +48,5 @@
 (defn score [rolls]
   (if (empty? rolls)
     0
-    (if (next-frame-strike? rolls)
-      (+ (score-frame rolls)
-         (score (remaining-rolls rolls)))
-      (if (next-frame-spare? rolls)
-        (+ (score-frame rolls)
-           (score (remaining-rolls rolls)))
-        (+ (score-frame rolls)
-           (score (remaining-rolls rolls)))))))
+    (+ (score-frame rolls)
+       (score (remaining-rolls rolls)))))
