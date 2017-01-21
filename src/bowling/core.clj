@@ -12,7 +12,9 @@
 (defn- game-ends-with-spare? [rolls]
   (= 1 (count (drop 2 rolls))))
 
-(defn- remaining-strike-rolls [rolls]
+(defmulti remaining-rolls (fn [rolls] (if (next-frame-strike? rolls) :strike)))
+
+(defmethod remaining-rolls :strike [rolls]
   (if (game-ends-with-strike? rolls)
     (drop 2 (rest rolls))
     (rest rolls)))
@@ -22,7 +24,7 @@
     (drop 1 (drop 2 rolls))
     (drop 2 rolls)))
 
-(defn- remaining-rolls [rolls]
+(defmethod remaining-rolls nil [rolls]
   (drop 2 rolls))
 
 (defn- score-strike-frame [rolls]
@@ -39,7 +41,7 @@
     0
     (if (next-frame-strike? rolls)
       (+ (score-strike-frame rolls)
-         (score (remaining-strike-rolls rolls)))
+         (score (remaining-rolls rolls)))
       (if (next-frame-spare? rolls)
         (+ (score-spare-frame rolls)
            (score (remaining-spare-rolls rolls)))
