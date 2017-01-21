@@ -44,8 +44,11 @@
 (defmethod score-frame nil [rolls]
   (apply + (take 2 rolls)))
 
-(defn score [rolls]
-  (if (empty? rolls)
-    0
-    (+ (score-frame rolls)
-       (score (remaining-rolls rolls)))))
+(defn score
+  ([rolls]
+   (score rolls 0))
+
+  ([rolls accumulator]
+   (if (empty? rolls)
+     accumulator
+     (recur (remaining-rolls rolls) (+ accumulator (score-frame rolls))))))
