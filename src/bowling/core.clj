@@ -1,7 +1,7 @@
 (ns bowling.core)
 
-(defn- spare? [roll1 roll2]
-  (= 10 (+ roll1 roll2)))
+(defn- spare? [rolls]
+  (= 10 (+ (first rolls) (second rolls))))
 
 (defn- strike? [rolls]
   (= 10 (first rolls)))
@@ -18,7 +18,7 @@
        (if (strike-bonus? (rest rolls))
          0
          (score (rest rolls))))
-    (if (spare? (first rolls) (second rolls))
+    (if (spare? rolls)
       (+ (apply + (take 3 rolls))
          (if (spare-bonus? (drop 2 rolls))
            0
