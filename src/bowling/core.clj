@@ -17,12 +17,14 @@
     0
     (if (next-frame-strike? rolls)
       (+ (apply + (take 3 rolls))
-         (if (game-ends-with-strike? rolls)
-           (score (drop 2 (rest rolls)))
-           (score (rest rolls))))
+         (score
+           (if (game-ends-with-strike? rolls)
+             (drop 2 (rest rolls))
+             (rest rolls))))
       (if (next-frame-spare? rolls)
         (+ (apply + (take 3 rolls))
-           (if (game-ends-with-spare? rolls)
-             (score (drop 1 (drop 2 rolls)))
-             (score (drop 2 rolls))))
+           (score
+             (if (game-ends-with-spare? rolls)
+               (drop 1 (drop 2 rolls))
+               (drop 2 rolls))))
         (+ (apply + (take 2 rolls)) (score (drop 2 rolls)))))))
