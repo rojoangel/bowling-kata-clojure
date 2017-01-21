@@ -1,15 +1,15 @@
 (ns bowling.core)
 
-(defn spare? [roll1 roll2]
+(defn- spare? [roll1 roll2]
   (= 10 (+ roll1 roll2)))
 
-(defn strike? [roll]
+(defn- strike? [roll]
   (= 10 roll))
 
-(defn strike-bonus? [rolls]
+(defn- strike-bonus? [rolls]
   (= 2 (count rolls)))
 
-(defn spare-bonus? [rolls]
+(defn- spare-bonus? [rolls]
   (= 1 (count rolls)))
 
 (defn score [rolls]
