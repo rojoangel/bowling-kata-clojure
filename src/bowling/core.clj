@@ -23,6 +23,6 @@
       (if (next-frame-spare? rolls)
         (+ (apply + (take 3 rolls))
            (if (spare-bonus? (drop 2 rolls))
-             0
+             (score (drop 1 (drop 2 rolls)))
              (score (drop 2 rolls))))
         (+ (apply + (take 2 rolls)) (score (drop 2 rolls)))))))
