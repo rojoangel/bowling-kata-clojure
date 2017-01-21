@@ -25,14 +25,23 @@
 (defn- remaining-rolls [rolls]
   (drop 2 rolls))
 
+(defn- score-strike-frame [rolls]
+  (apply + (take 3 rolls)))
+
+(defn- score-spare-frame [rolls]
+  (apply + (take 3 rolls)))
+
+(defn- score-frame [rolls]
+  (apply + (take 2 rolls)))
+
 (defn score [rolls]
   (if (empty? rolls)
     0
     (if (next-frame-strike? rolls)
-      (+ (apply + (take 3 rolls))
+      (+ (score-strike-frame rolls)
          (score (remaining-strike-rolls rolls)))
       (if (next-frame-spare? rolls)
-        (+ (apply + (take 3 rolls))
+        (+ (score-spare-frame rolls)
            (score (remaining-spare-rolls rolls)))
-        (+ (apply + (take 2 rolls))
+        (+ (score-frame rolls)
            (score (remaining-rolls rolls)))))))
