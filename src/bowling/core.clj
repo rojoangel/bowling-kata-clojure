@@ -18,7 +18,7 @@
     (if (next-frame-strike? rolls)
       (+ (apply + (take 3 rolls))
          (if (strike-bonus? (rest rolls))
-           0
+           (score (drop 2 (rest rolls)))
            (score (rest rolls))))
       (if (next-frame-spare? rolls)
         (+ (apply + (take 3 rolls))
